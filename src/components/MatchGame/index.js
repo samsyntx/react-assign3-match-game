@@ -30,7 +30,6 @@ class MatchGame extends Component {
 
   completeGameContainer = () => {
     const {tabsList, imagesList} = this.props
-
     return (
       <div className="main-container-for-play-game">
         <img
@@ -52,12 +51,36 @@ class MatchGame extends Component {
     )
   }
 
+  gameOverContainer = () => (
+    <div className="game-over-complete-container">
+      <div className="trophy-content-container">
+        <img
+          className="trophy-style"
+          src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png"
+          alt="trophy"
+        />
+        <h1>Your Score</h1>
+        <p className="score-show-in-result">30</p>
+        <button className="play-gain-button" type="button">
+          <img
+            src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
+            alt="reset"
+          />
+          <p className="play-gain-text">PLAY AGAIN</p>
+        </button>
+      </div>
+    </div>
+  )
+
   render() {
+    const gameRunning = false
     return (
       <div className="complete-bg-match-game-container">
         {this.headerRender()}
         <div className="result-and-game-container">
-          {this.completeGameContainer()}
+          {gameRunning
+            ? this.completeGameContainer()
+            : this.gameOverContainer()}
         </div>
       </div>
     )
