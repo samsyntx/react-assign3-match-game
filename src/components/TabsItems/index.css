@@ -1,4 +1,12 @@
 .tab-list-items {
   font-size: 20px;
   margin: 15px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 10px 0px 10px 0px;
+}
+.active-tab-style {
+  color: #fec653;
+  border-bottom: 2px solid #fec653;
 }

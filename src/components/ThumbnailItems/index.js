@@ -1,11 +1,21 @@
 import './index.css'
 
 const ThumbnailItems = props => {
-  const {eachImageDetails} = props
+  const {eachImageDetails, changeImageAndCheckRes} = props
   const {id, thumbnailUrl} = eachImageDetails
+
+  const clickedOnThumbnail = () => {
+    changeImageAndCheckRes(id)
+  }
+
   return (
     <li className="thumbnailItems">
-      <img className="thumbnail-image-style" src={thumbnailUrl} alt={id} />
+      <img
+        onClick={clickedOnThumbnail}
+        className="thumbnail-image-style"
+        src={thumbnailUrl}
+        alt={id}
+      />
     </li>
   )
 }

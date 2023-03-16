@@ -5,15 +5,17 @@
   font-family: 'Roboto';
   color: white;
 }
-.complete-bg-match-game-container {
-  background-image: url('https://assets.ccbp.in/frontend/react-js/match-game-bg.png');
-  background-size: cover;
-  padding: 25px;
+button {
+  cursor: pointer;
+}
+.header-top-menu-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  background-color: #2c0e3a;
+  height: 60px;
+  padding: 25px;
 }
 .header-main-container {
   width: 100%;
@@ -52,6 +54,17 @@
   width: 25px;
   margin-right: 10px;
 }
+
+.complete-bg-match-game-container {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/match-game-bg.png');
+  background-size: cover;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 .main-big-img-style {
   width: 100%;
   margin: 15px 0px 15px 0px;
@@ -73,43 +86,28 @@
   align-items: center;
   flex-wrap: wrap;
 }
-
-/* GAME OVER CSS */
-.game-over-complete-container {
-  background-image: url('https://assets.ccbp.in/frontend/react-js/match-game-score-card-lg-bg.png');
-  background-size: cover;
-  background-position: center center;
-  padding: 20px;
-  height: 600px;
-  border-radius: 25px;
-  margin: 30px 0px 30px 0px;
-}
-.trophy-content-container {
-  position: relative;
-  top: 200px;
+.result-and-game-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-}
-.trophy-style {
-  width: 250px;
-}
-.score-show-in-result {
-  font-size: 30px;
-  font-weight: bold;
-  margin: 20px 0px 20px 0px;
-}
-.play-gain-button {
-  background: none;
-  border: none;
-  background-color: #cf60c8;
-  padding: 10px 20px 10px 20px;
-  display: flex;
   align-items: center;
-  border-radius: 15px;
 }
-.play-gain-text {
-  font-weight: bold;
-  margin-left: 10px;
+
+@media all and (min-width: 500px) {
+  .main-container-for-play-game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .main-big-img-style {
+    max-width: 500px;
+  }
+  .thumbnail-container {
+    max-width: 600px;
+  }
+  .match-game-logo {
+    width: 160px;
+  }
 }

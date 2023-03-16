@@ -1,10 +1,25 @@
 import './index.css'
 
 const TabsItems = props => {
-  const {tabsItemDetail} = props
-  const {displayText} = tabsItemDetail
+  const {tabsItemDetail, changeCategoryList, isActiveTab} = props
+  const {tabId, displayText} = tabsItemDetail
 
-  return <li className="tab-list-items">{displayText}</li>
+  const clickedOnCategory = () => {
+    changeCategoryList(tabId)
+  }
+  const activeTabStyle = isActiveTab ? 'active-tab-style' : ''
+
+  return (
+    <li>
+      <button
+        type="button"
+        onClick={clickedOnCategory}
+        className={`tab-list-items ${activeTabStyle}`}
+      >
+        {displayText}
+      </button>
+    </li>
+  )
 }
 
 export default TabsItems

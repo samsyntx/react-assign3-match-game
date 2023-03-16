@@ -1,88 +1,145 @@
 import {Component} from 'react'
 import TabsItems from '../TabsItems'
 import ThumbnailItems from '../ThumbnailItems'
+import GameOverComp from '../GameOverComp'
 import './index.css'
 
 class MatchGame extends Component {
-  headerRender = () => (
-    <div className="header-main-container">
-      <img
-        className="match-game-logo"
-        src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
-        alt="website logo"
-      />
+  state = {
+    timer: 60,
+    isGameRunning: true,
+    score: 0,
+    ListCategory: 'FRUIT',
+    ImageId: 'b11ec8ce-35c9-4d67-a7f7-07516d0d8186',
+  }
 
-      <div className="score-and-timer-container">
-        <p className="header-paragraph">
-          Score: <span className="header-span">4</span>
-        </p>
-        <div className="timer-container">
-          <img
-            className="timer-icon-css"
-            src="https://assets.ccbp.in/frontend/react-js/match-game-timer-img.png"
-            alt="timer"
-          />
-          <p className="header-span">50 sec</p>
+  componentDidMount() {
+    this.timerId = setInterval(this.startTimerAfterRender, 1000)
+  }
+
+  startTimerAfterRender = () => {
+    const {timer} = this.state
+    if (timer === 0) {
+      clearInterval(this.timerId)
+      this.setState({isGameRunning: false})
+    } else {
+      this.setState(prevState => ({timer: prevState.timer - 1}))
+    }
+  }
+
+  changeImageAndCheckRes = uniqueId => {
+    const {ImageId} = this.state
+    const {imagesList} = this.props
+    if (uniqueId === ImageId) {
+      this.setState(prevState => ({score: prevState + 1}))
+    } else {
+      clearInterval(this.timerId)
+      this.setState({isGameRunning: false})
+    }
+    const generatingRandom = Math.floor(Math.random() * imagesList.length)
+    const BImageDetails = imagesList[generatingRandom]
+    this.setState({ImageId: BImageDetails.id})
+  }
+
+  changeCategoryList = uniqueCategory => {
+    this.setState({ListCategory: uniqueCategory})
+  }
+
+  startingGameAgain = () => {
+    this.setState({
+      isGameRunning: true,
+      score: 0,
+      ListCategory: 'FRUIT',
+    })
+  }
+
+  renderHeaderSection = () => {
+    const {score, timer} = this.state
+    const timerFormatted = timer < 10 ? `0${timer}` : timer
+    console.log(score)
+    return (
+      <div className="header-main-container">
+        <img
+          className="match-game-logo"
+          src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
+          alt="website logo"
+        />
+        <div className="score-and-timer-container">
+          <p className="header-paragraph">
+            Score : <span className="header-span">{score}</span>
+          </p>
+          <div className="timer-container">
+            <img
+              className="timer-icon-css"
+              src="https://assets.ccbp.in/frontend/react-js/match-game-timer-img.png"
+              alt="timer"
+            />
+            <p className="header-span">{timerFormatted} sec</p>
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 
   completeGameContainer = () => {
     const {tabsList, imagesList} = this.props
+    const {ListCategory, ImageId} = this.state
+
+    const filteredList = imagesList.filter(
+      eachImage => eachImage.category === ListCategory,
+    )
+    const filterImage = imagesList.filter(each => each.id === ImageId).pop()
+
     return (
       <div className="main-container-for-play-game">
         <img
           className="main-big-img-style"
-          src="https://assets.ccbp.in/frontend/react-js/match-game/orange-img.png"
-          alt="trial"
+          src={filterImage.imageUrl}
+          alt={filterImage.id}
         />
         <ul className="menu-items-container">
           {tabsList.map(eachTabItem => (
-            <TabsItems tabsItemDetail={eachTabItem} key={eachTabItem.tabId} />
+            <TabsItems
+              isActiveTab={eachTabItem.tabId === ListCategory}
+              changeCategoryList={this.changeCategoryList}
+              tabsItemDetail={eachTabItem}
+              key={eachTabItem.tabId}
+            />
           ))}
         </ul>
         <ul className="thumbnail-container">
-          {imagesList.map(eachImage => (
-            <ThumbnailItems eachImageDetails={eachImage} key={eachImage.id} />
+          {filteredList.map(eachImage => (
+            <ThumbnailItems
+              changeImageAndCheckRes={this.changeImageAndCheckRes}
+              eachImageDetails={eachImage}
+              key={eachImage.id}
+            />
           ))}
         </ul>
       </div>
     )
   }
 
-  gameOverContainer = () => (
-    <div className="game-over-complete-container">
-      <div className="trophy-content-container">
-        <img
-          className="trophy-style"
-          src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png"
-          alt="trophy"
-        />
-        <h1>Your Score</h1>
-        <p className="score-show-in-result">30</p>
-        <button className="play-gain-button" type="button">
-          <img
-            src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
-            alt="reset"
-          />
-          <p className="play-gain-text">PLAY AGAIN</p>
-        </button>
-      </div>
-    </div>
-  )
-
   render() {
-    const gameRunning = false
+    const {isGameRunning, score} = this.state
     return (
-      <div className="complete-bg-match-game-container">
-        {this.headerRender()}
-        <div className="result-and-game-container">
-          {gameRunning
-            ? this.completeGameContainer()
-            : this.gameOverContainer()}
+      <>
+        <div className="header-top-menu-container ">
+          {this.renderHeaderSection()}
         </div>
-      </div>
+        <div className="complete-bg-match-game-container">
+          <div className="result-and-game-container">
+            {isGameRunning ? (
+              this.completeGameContainer()
+            ) : (
+              <GameOverComp
+                score={score}
+                startingGameAgain={this.startingGameAgain}
+              />
+            )}
+          </div>
+        </div>
+      </>
     )
   }
 }
