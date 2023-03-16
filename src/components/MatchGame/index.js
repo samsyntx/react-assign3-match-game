@@ -1,41 +1,56 @@
 import {Component} from 'react'
 import TabsItems from '../TabsItems'
+import ThumbnailItems from '../ThumbnailItems'
+import './index.css'
 
 class MatchGame extends Component {
   headerRender = () => (
     <div className="header-main-container">
-      <div className="img-logo-container">
-        <img
-          src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
-          alt="website logo"
-        />
-      </div>
+      <img
+        className="match-game-logo"
+        src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
+        alt="website logo"
+      />
+
       <div className="score-and-timer-container">
-        <p>
-          Score: <span>4</span>
+        <p className="header-paragraph">
+          Score: <span className="header-span">4</span>
         </p>
         <div className="timer-container">
           <img
+            className="timer-icon-css"
             src="https://assets.ccbp.in/frontend/react-js/match-game-timer-img.png"
             alt="timer"
           />
-          <p>
-            <span>50</span> sec
-          </p>
+          <p className="header-span">50 sec</p>
         </div>
       </div>
     </div>
   )
 
-  completeGameContainer = () => (
-    <div className="main-container-for-play-game">
-      <img
-        src="https://www.google.com/search?q=imgae&oq=imgae&aqs=edge..69i57j0i273j0i10i131i433i512l5j0i10i512j0i10i131i433i512.1055j0j9&sourceid=chrome&ie=UTF-8#imgrc=GOm7hFq2LnbWrM"
-        alt="trial"
-      />
-      <TabsItems />
-    </div>
-  )
+  completeGameContainer = () => {
+    const {tabsList, imagesList} = this.props
+
+    return (
+      <div className="main-container-for-play-game">
+        <img
+          className="main-big-img-style"
+          src="https://assets.ccbp.in/frontend/react-js/match-game/orange-img.png"
+          alt="trial"
+        />
+        <ul className="menu-items-container">
+          {tabsList.map(eachTabItem => (
+            <TabsItems tabsItemDetail={eachTabItem} key={eachTabItem.tabId} />
+          ))}
+        </ul>
+        <ul className="thumbnail-container">
+          {imagesList.map(eachImage => (
+            <ThumbnailItems eachImageDetails={eachImage} key={eachImage.id} />
+          ))}
+        </ul>
+      </div>
+    )
+  }
 
   render() {
     return (
