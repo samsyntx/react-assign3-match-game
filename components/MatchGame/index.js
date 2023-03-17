@@ -61,15 +61,17 @@ class MatchGame extends Component {
     const timerFormatted = timer < 10 ? `0${timer}` : timer
     console.log(score)
     return (
-      <div className="header-main-container">
-        <img
-          className="match-game-logo"
-          src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
-          alt="website logo"
-        />
-        <div className="score-and-timer-container">
+      <ul className="header-main-container">
+        <li>
+          <img
+            className="match-game-logo"
+            src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
+            alt="website logo"
+          />
+        </li>
+        <li className="score-and-timer-container">
           <p className="header-paragraph">
-            Score : <span className="header-span">{score}</span>
+            Score: <span className="header-span">{score}</span>
           </p>
           <div className="timer-container">
             <img
@@ -79,8 +81,8 @@ class MatchGame extends Component {
             />
             <p className="header-span">{timerFormatted} sec</p>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     )
   }
 
@@ -98,7 +100,7 @@ class MatchGame extends Component {
         <img
           className="main-big-img-style"
           src={filterImage.imageUrl}
-          alt={filterImage.id}
+          alt="match"
         />
         <ul className="menu-items-container">
           {tabsList.map(eachTabItem => (

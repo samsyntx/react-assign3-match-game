@@ -15,7 +15,7 @@ const GameOverComp = props => {
           src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png"
           alt="trophy"
         />
-        <h1>Your Score</h1>
+        <p>Your Score</p>
         <p className="score-show-in-result">{score}</p>
         <button
           onClick={playAgainButtonClicked}
