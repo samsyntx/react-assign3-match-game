@@ -31,7 +31,7 @@ class MatchGame extends Component {
     const {ImageId} = this.state
     const {imagesList} = this.props
     if (uniqueId === ImageId) {
-      this.setState(prevState => ({score: prevState + 1}))
+      this.setState(prevState => ({score: prevState.score + 1}))
     } else {
       clearInterval(this.timerId)
       this.setState({isGameRunning: false})
@@ -47,10 +47,13 @@ class MatchGame extends Component {
 
   startingGameAgain = () => {
     this.setState({
+      timer: 60,
       isGameRunning: true,
       score: 0,
       ListCategory: 'FRUIT',
+      ImageId: 'b11ec8ce-35c9-4d67-a7f7-07516d0d8186',
     })
+    this.timerId = setInterval(this.startTimerAfterRender, 1000)
   }
 
   renderHeaderSection = () => {

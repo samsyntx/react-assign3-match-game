@@ -5,3 +5,8 @@
 .thumbnail-image-style {
   width: 75px;
 }
+@media all and (min-width: 700px) {
+  .thumbnail-image-style {
+    width: 100px;
+  }
+}
